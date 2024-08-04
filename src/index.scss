@@ -1,0 +1,77 @@
+// reset.scss
+
+/* Remove margin and padding from all elements */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set font size and family for body */
+body {
+  font-size: 100%;
+  font-family: sans-serif;
+}
+
+/* Remove list styles */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remove table borders */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Remove underline from links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remove default styles from form elements */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* Remove default border from images */
+img {
+  border: 0;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Set default line height */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  line-height: 1.5;
+}
+
+/* Normalize HTML5 elements */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+mark,
+nav,
+section,
+summary {
+  display: block;
+}
