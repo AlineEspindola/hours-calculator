@@ -1,20 +1,18 @@
 import React from 'react';
 import './App.scss';
 import DropdownOperation from './components/DropdownOperation';
-import { Col, Flex, Row } from 'antd';
+import InputTime from './components/InputTime';
+import { Divider, InputNumber } from 'antd';
 
 function App() {
   return (
-    <Row
-      justify="center"
-    >
-      <Col>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '35px' }}>
-          <DropdownOperation />
-          <DropdownOperation />
-        </div>
-      </Col>
-    </Row>
+    <>
+      <DropdownOperation />
+      <InputTime />
+      <InputTime />
+      <Divider>Resultado</Divider>
+      <InputNumber size="large" min={1} max={999999999999} defaultValue={0} />
+    </>
   );
 }
 
