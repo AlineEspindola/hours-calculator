@@ -19,7 +19,7 @@ const DropdownOperation: React.FC = () => {
   return (
     <Dropdown overlay={options}>
       <Button>
-        <Space>
+        <Space style={{ padding: "40px 0" }}>
           {selectedOption === 'sum' ? <PlusOutlined /> : <MinusOutlined />}
           <DownOutlined />
         </Space>

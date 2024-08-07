@@ -2,7 +2,11 @@ import { InputNumber, Space } from "antd";
 import { useEffect, useState } from "react";
 import './InputTime.scss';
 
-const InputTime: React.FC = () => {
+interface InputTimeProps {
+  onChange: (totalSeconds: number) => void;
+}
+
+const InputTime: React.FC<InputTimeProps> = ({ onChange }) => {
   const [totalTime, setTotalTime] = useState<number>(0);
   const [hour, setHour] = useState<number>(0);
   const [minute, setMinute] = useState<number>(0);
@@ -34,6 +38,7 @@ const InputTime: React.FC = () => {
 
   useEffect(() => {
     setTotalTime((hour * 3600) + (minute * 60) + second);
+    onChange(totalTime);
   }, [hour, minute, second, totalTime])
 
   return (
