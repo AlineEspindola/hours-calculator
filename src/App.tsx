@@ -78,7 +78,7 @@ function App() {
                 width={width}
                 height={height}
               />
-              <Title className="animate__animated animate__rollIn" style={{ marginTop: "3vh", fontSize: "#ffa594", color: "pink" }}>Parabéns, meu amor! Feliz aniversário!</Title>
+              <Title className="animate__animated animate__rollIn" style={{ marginTop: "3vh", fontSize: "#ffa594", color: "pink", textAlign: "center" }}>Parabéns, meu amor! Feliz aniversário!</Title>
               <img src="https://media.tenor.com/bh9MAiCpL6wAAAAi/birthday-cake.gif" alt="Imagem da gatinha" style={{ width: "230px" }} />
             </>
           )}
