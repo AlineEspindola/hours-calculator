@@ -1,15 +1,22 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './App.scss';
 import DropdownOperation from './components/DropdownOperation';
 import InputTime from './components/InputTime';
 import { Divider, InputNumber, Flex, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import useWindowSize from 'react-use/lib/useWindowSize';
+import Confetti from 'react-confetti';
+import { Typography } from 'antd';
+import 'animate.css';
 
 function App() {
   const [totalSeconds, setTotalSeconds] = useState<number>(0);
+  const { width, height } = useWindowSize()
   const [amountInputTime, setAmountInputTime] = useState<number>(2);
   const [amoutDropdownOperation, setAmoutDropdownOperation] = useState<number>(1);
   const [inputValues, setInputValues] = useState<number[]>(Array(amountInputTime).fill(0));
+  const [cat, setCat] = useState<boolean>(false);
+  const { Title } = Typography;
 
   const addInputTime = () => {
     setAmountInputTime(amountInputTime + 1);
@@ -36,6 +43,14 @@ function App() {
     return `0${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
 
+  useEffect(() => {
+    if (totalSeconds === 29285) {
+      setCat(true);
+    } else {
+      setCat(false);
+    }
+  }, [totalSeconds]);
+
   return (
     <Flex className='container' justify='center'>
       <div className='container__content'>
@@ -57,6 +72,16 @@ function App() {
         <div className='result'>
           <Divider>Resultado</Divider>
           <InputNumber size="large" readOnly value={converterSecondsToHours(totalSeconds)} />
+          {cat && (
+            <>
+              <Confetti
+                width={width}
+                height={height}
+              />
+              <Title className="animate__animated animate__rollIn" style={{ marginTop: "3vh", fontSize: "#ffa594", color: "pink" }}>Parabéns, meu amor! Feliz aniversário!</Title>
+              <img src="https://media.tenor.com/bh9MAiCpL6wAAAAi/birthday-cake.gif" alt="Imagem da gatinha" style={{ width: "230px" }} />
+            </>
+          )}
         </div>
       </div>
     </Flex>
