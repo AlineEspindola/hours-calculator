@@ -37,10 +37,14 @@ function App() {
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
 
-    if (hours > 9) {
+    if (totalSeconds === 29285) {
+      return '08/08/2005'
+    } else {
+      if (hours > 9) {
       return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     }
     return `0${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
   }
 
   useEffect(() => {
@@ -71,14 +75,14 @@ function App() {
         </div>
         <div className='result'>
           <Divider>Resultado</Divider>
-          <InputNumber size="large" readOnly value={converterSecondsToHours(totalSeconds)} />
+          <InputNumber size="large" style={{ width: 150 }} readOnly value={converterSecondsToHours(totalSeconds)} />
           {cat && (
             <>
               <Confetti
                 width={width}
                 height={height}
               />
-              <Title className="animate__animated animate__rollIn" style={{ marginTop: "3vh", fontSize: "#ffa594", color: "pink", textAlign: "center" }}>Parabéns, meu amor! Feliz aniversário!</Title>
+              <Title className="animate__animated animate__rollIn" style={{ marginTop: "3vh", fontSize: "1rem", color: "#ffa594", textAlign: "center", maxWidth: "250px" }}>Parabéns Thiago, meu amor! Feliz aniversário!</Title>
               <img src="https://media.tenor.com/bh9MAiCpL6wAAAAi/birthday-cake.gif" alt="Imagem da gatinha" style={{ width: "230px" }} />
             </>
           )}
