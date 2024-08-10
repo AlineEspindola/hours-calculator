@@ -72,7 +72,7 @@ function App() {
         <div className='calculator'>
           <div className='calculator__operations'>
             {Array.from({ length: amoutDropdownOperation }).map((_, index) => (
-              <DropdownOperation key={index} operation={(value) => handleDropdownOperationChange(index, value)} />
+              <DropdownOperation key={index} operation={(value) => handleDropdownOperationChange(index+1, value)} />
             ))}
           </div>
           <div className='calculator__inputs'>
