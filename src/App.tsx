@@ -14,6 +14,7 @@ function App() {
   const { width, height } = useWindowSize()
   const [amountInputTime, setAmountInputTime] = useState<number>(2);
   const [amoutDropdownOperation, setAmoutDropdownOperation] = useState<number>(1);
+  const [dropdownOperationValues, setDropdownOperationValues] = useState<string[]>(Array(amoutDropdownOperation).fill('sum'));
   const [inputValues, setInputValues] = useState<number[]>(Array(amountInputTime).fill(0));
   const [cat, setCat] = useState<boolean>(false);
   const { Title } = Typography;
@@ -22,6 +23,7 @@ function App() {
     setAmountInputTime(amountInputTime + 1);
     setAmoutDropdownOperation(amoutDropdownOperation + 1);
     setInputValues([...inputValues, 0]);
+    setDropdownOperationValues([...dropdownOperationValues, 'sum']); 
   }
 
   const handleInputChange = useCallback((index: number, value: number) => {
@@ -32,6 +34,12 @@ function App() {
 
   }, [inputValues]);
 
+  const handleDropdownOperationChange = (index: number, value: string) => {
+    const newDropdownValues = [...dropdownOperationValues];
+    newDropdownValues[index] = value;
+    setDropdownOperationValues(newDropdownValues);
+  };
+
   const converterSecondsToHours = (totalSeconds: number) => {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -40,10 +48,13 @@ function App() {
     if (totalSeconds === 29285) {
       return '08/08/2005'
     } else {
-      if (hours > 9) {
-      return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
-    return `0${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      if (Math.abs(hours) > 9) {
+        return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      } else if (hours < 0) {
+        return `-${Math.abs(hours).toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      } else {
+        return `0${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }
     }
   }
 
@@ -61,12 +72,12 @@ function App() {
         <div className='calculator'>
           <div className='calculator__operations'>
             {Array.from({ length: amoutDropdownOperation }).map((_, index) => (
-              <DropdownOperation key={index} />
+              <DropdownOperation key={index} operation={(value) => handleDropdownOperationChange(index, value)} />
             ))}
           </div>
           <div className='calculator__inputs'>
             {Array.from({ length: amountInputTime }).map((_, index) => (
-              <InputTime key={index} onChange={(value) => handleInputChange(index, value)} />
+              <InputTime key={index} onChange={(value) => handleInputChange(index, value)} signalOperation={dropdownOperationValues[index]} index={index} />
             ))}
             <Button type="dashed" onClick={addInputTime}>
               Adicionar <PlusOutlined />

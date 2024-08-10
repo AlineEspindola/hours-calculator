@@ -2,11 +2,16 @@ import { DownOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { Dropdown, Button, Space, Menu } from 'antd';
 import { useState } from 'react';
 
-const DropdownOperation: React.FC = () => {
+interface DropdownOperationProps {
+  operation: (value: string) => void;
+}
+
+const DropdownOperation: React.FC<DropdownOperationProps> = ({ operation }) => {
   const [selectedOption, setSelectedOption] = useState<string>('sum');
 
   const handleOptionClick = (e: { key: string }) => {
     setSelectedOption(e.key);
+    operation(e.key);
   };
 
   const options = (

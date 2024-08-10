@@ -4,9 +4,11 @@ import './InputTime.scss';
 
 interface InputTimeProps {
   onChange: (totalSeconds: number) => void;
+  signalOperation: string;
+  index: number;
 }
 
-const InputTime: React.FC<InputTimeProps> = ({ onChange }) => {
+const InputTime: React.FC<InputTimeProps> = ({ onChange, signalOperation, index }) => {
   const [totalTime, setTotalTime] = useState<number>(0);
   const [hour, setHour] = useState<number>(0);
   const [minute, setMinute] = useState<number>(0);
@@ -37,9 +39,14 @@ const InputTime: React.FC<InputTimeProps> = ({ onChange }) => {
   }
 
   useEffect(() => {
-    setTotalTime((hour * 3600) + (minute * 60) + second);
+    let totalTime = (hour * 3600) + (minute * 60) + second;
+    
+    if (signalOperation === 'subtract' && index > 0) {
+      totalTime = -totalTime;
+    }
+
     onChange(totalTime);
-  }, [hour, minute, second, totalTime])
+  }, [hour, minute, second, signalOperation, index, onChange])
 
   return (
     <Space wrap>
