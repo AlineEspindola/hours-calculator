@@ -23,7 +23,7 @@ function App() {
     setAmountInputTime(amountInputTime + 1);
     setAmoutDropdownOperation(amoutDropdownOperation + 1);
     setInputValues([...inputValues, 0]);
-    setDropdownOperationValues([...dropdownOperationValues, 'sum']); 
+    setDropdownOperationValues([...dropdownOperationValues, 'sum']);
   }
 
   const handleInputChange = useCallback((index: number, value: number) => {
@@ -38,6 +38,18 @@ function App() {
     const newDropdownValues = [...dropdownOperationValues];
     newDropdownValues[index] = value;
     setDropdownOperationValues(newDropdownValues);
+  };
+
+  const handleRemove = (index: number) => {
+    const newInputValues = inputValues.filter((_, i) => i !== index);
+    const newDropdownOperationValues = dropdownOperationValues.filter((_, i) => i !== index);
+
+    setInputValues(newInputValues);
+    setDropdownOperationValues(newDropdownOperationValues);
+    setAmountInputTime(newInputValues.length);
+    setAmoutDropdownOperation(newDropdownOperationValues.length);
+
+    setTotalSeconds(newInputValues.reduce((acc, curr) => acc + curr, 0));
   };
 
   const converterSecondsToHours = (totalSeconds: number) => {
@@ -72,12 +84,12 @@ function App() {
         <div className='calculator'>
           <div className='calculator__operations'>
             {Array.from({ length: amoutDropdownOperation }).map((_, index) => (
-              <DropdownOperation key={index} operation={(value) => handleDropdownOperationChange(index+1, value)} />
+              <DropdownOperation key={index} operation={(value) => handleDropdownOperationChange(index + 1, value)} />
             ))}
           </div>
           <div className='calculator__inputs'>
             {Array.from({ length: amountInputTime }).map((_, index) => (
-              <InputTime key={index} onChange={(value) => handleInputChange(index, value)} signalOperation={dropdownOperationValues[index]} index={index} />
+              <InputTime key={index} onChange={(value) => handleInputChange(index, value)} signalOperation={dropdownOperationValues[index]} index={index} onRemove={handleRemove} />
             ))}
             <Button type="dashed" onClick={addInputTime}>
               Adicionar <PlusOutlined />

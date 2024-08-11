@@ -1,14 +1,16 @@
-import { InputNumber, Space } from "antd";
+import { InputNumber, Space, Badge } from "antd";
 import { useEffect, useState } from "react";
 import './InputTime.scss';
+import { DeleteOutlined } from "@ant-design/icons";
 
 interface InputTimeProps {
   onChange: (totalSeconds: number) => void;
   signalOperation: string;
   index: number;
+  onRemove: (index: number) => void;
 }
 
-const InputTime: React.FC<InputTimeProps> = ({ onChange, signalOperation, index }) => {
+const InputTime: React.FC<InputTimeProps> = ({ onChange, signalOperation, index, onRemove }) => {
   const [totalTime, setTotalTime] = useState<number>(0);
   const [hour, setHour] = useState<number>(0);
   const [minute, setMinute] = useState<number>(0);
@@ -54,7 +56,9 @@ const InputTime: React.FC<InputTimeProps> = ({ onChange, signalOperation, index 
       <>:</>
       <InputNumber size="large" max={59} min={0} defaultValue={0} onChange={changeMinute} />
       <>:</>
-      <InputNumber size="large" max={59} min={0} defaultValue={0} onChange={changeSecond} />
+      <Badge count={<DeleteOutlined  style={{ cursor: 'pointer' }} onClick={() => onRemove(index)} />}>
+        <InputNumber size="large" max={59} min={0} defaultValue={0} onChange={changeSecond} />
+      </Badge>
     </Space>
   );
 }
