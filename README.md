@@ -5,6 +5,7 @@
 [Acesse a calculadora](https://hours-calculator-gray.vercel.app/)
 
 ## 🚀 Sobre o Projeto  
+Uma calculadora de horas que permite somar ou subtrair o tempo gasto em suas atividades.
 
 ---
 
